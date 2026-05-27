@@ -81,7 +81,6 @@ int main(void) {
         led_toggle();
         _delay_ms(500);
 
-        /* Verifica flag da interrupcao */
         if (botao_pressionado) {
             botao_pressionado = 0;
             uart_send_string("Botao pressionado!\r\n");
