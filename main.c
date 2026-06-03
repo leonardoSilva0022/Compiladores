@@ -87,6 +87,13 @@ int main(void) {
             led_on();
             _delay_ms(1000);
             led_off();
+
+            if (botao_pressionado) {
+                botao_pressionado = 0;
+                uart_send_string("Botao pressionado!\r\n");
+                led_on();
+                _delay_ms(1000);
+                led_off();
         }
     }
     return 0;
