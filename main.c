@@ -1,19 +1,21 @@
-#include <16F628A.h>
-#fuses XT
-#use delay( clock=4MHz )
+#include <18F4550.h>
+#fuses XT, MCLR, NOWDT
+#use delay(clock=4MHz)
 
-void  main () {
+void main() {
 
-    int contador = 0;
-    int1 btn1;
+    unsigned int16 P;
+    unsigned int16 PR2;
+    unsigned int16 DC;
+    PR2 = 124;
+    P = 50; // 50% de duty cycle ou metade da máxima potência
 
-    while(TRUE) {
-        btn1 = input(PIN_A1 );
+    setup_timer_2(T2_DIV_BY_16, PR2, 1);
+    setup_ccp1(CCP_PWM);
 
-        if (btn1 == 0) {
-            contador++;
-            output_b (contador);
-            delay_ms(500);
-        }
+    DC = (unsigned int16)((PR2 + 1) * 4 * (P/100.0));
+    set_pwm1_duty(DC);
+
+    while(true) {
     }
 }
